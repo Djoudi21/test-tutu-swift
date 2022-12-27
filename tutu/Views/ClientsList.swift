@@ -17,7 +17,7 @@ struct ClientsList: View {
         VStack {
             ScrollView {
                 ScrollViewReader { proxy in
-                    SearchBar(firstName: $firstName, scrollToIndex: $scrollToIndex)
+                    SearchBar(toto: $firstName, scrollToIndex: $scrollToIndex)
                     ForEach(Array(savedEntities.savedClients.enumerated()), id: \.element){ index, item in
                         NavigationLink {
                             ClientDetailsPage(firstname: item.firstName ?? "", lastname: item.lastName ?? "", id: Int(item.id ))
@@ -36,7 +36,7 @@ struct ClientsList: View {
             }
              .navigationBarItems(trailing: Button("TOTO", action: {
                showSheet = true
-            }).padding(.top, 40))
+            }).padding(.top, 20))
             .sheet(isPresented: $showSheet) {
                 AddClientPage(firstName: "", lastName: "", address: "")
            }

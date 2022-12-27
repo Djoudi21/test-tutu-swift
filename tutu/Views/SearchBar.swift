@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct SearchBar: View {
+    @Binding var toto: String
+    @Binding var scrollToIndex: String
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            TextField("Ener a username", text: $toto)
+            Button {
+                let index = "10"
+                scrollToIndex = toto
+            } label: {
+                Image(systemName: "magnifyingglass")
+                    .opacity(0.5)
+            }
+        }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 10, style: .circular).fill(Color.white).shadow(radius: 3))
+        .padding()
     }
 }
 
-struct SearchBar_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchBar()
-    }
-}

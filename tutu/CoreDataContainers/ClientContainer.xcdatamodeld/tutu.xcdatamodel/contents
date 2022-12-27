@@ -5,12 +5,24 @@
         <attribute name="firstName" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String"/>
+        <relationship name="interventions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InterventionEntity" inverseName="client" inverseEntity="InterventionEntity"/>
+        <relationship name="reports" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReportEntity" inverseName="client" inverseEntity="ReportEntity"/>
+    </entity>
+    <entity name="InterventionEntity" representedClassName="InterventionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="client" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ClientEntity" inverseName="interventions" inverseEntity="ClientEntity"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
+    <entity name="ReportEntity" representedClassName="ReportEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="comment" optional="YES" attributeType="String"/>
+        <relationship name="client" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ClientEntity" inverseName="reports" inverseEntity="ClientEntity"/>
+    </entity>
     <elements>
-        <element name="ClientEntity" positionX="-63" positionY="-9" width="128" height="89"/>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="ClientEntity" positionX="-263.640625" positionY="49.7421875" width="128" height="119"/>
+        <element name="Item" positionX="-78.22265625" positionY="-450.91015625" width="128" height="44"/>
+        <element name="InterventionEntity" positionX="-546.625" positionY="48.2265625" width="128" height="59"/>
+        <element name="ReportEntity" positionX="81.6640625" positionY="2.46875" width="128" height="59"/>
     </elements>
 </model>
