@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct tutuApp: App {
-    let persistenceController = PersistenceController.shared
+  @StateObject private var coreDataViewModel = CoreDataViewModel()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, coreDataViewModel.container.viewContext)
         }
     }
 }
