@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: []) var clients: FetchedResults<ClientEntity>
+    @FetchRequest(sortDescriptors: []) var interventions: FetchedResults<InterventionEntity>
+    @StateObject var coreDataViewModel: CoreDataViewModel = CoreDataViewModel()
     
     var body: some View {
         TabView {
@@ -31,6 +32,7 @@ struct ContentView: View {
                     Text("Clients")
             }
         }
+        .environmentObject(coreDataViewModel)
     }
 }
 

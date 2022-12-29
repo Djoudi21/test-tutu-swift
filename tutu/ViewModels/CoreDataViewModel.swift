@@ -10,32 +10,42 @@ import CoreData
 
 class CoreDataViewModel: ObservableObject {
     @Published var savedClients: [ClientEntity] = []
+    @Published var savedInterventions: [InterventionEntity] = []
+    @Published var savedReports: [ReportEntity] = []
+
 
     let container: NSPersistentContainer
     init() {
-        print("INIT")
-        container = NSPersistentContainer(name: "ClientContainer")
+        container = NSPersistentContainer(name: "CoreDataContainer")
         container.loadPersistentStores { (description, error) in
             if let error = error {
                 print("ERROR \(error)")
             }
         }
         fetchClients()
+        fetchInterventions()
     }
     
     func fetchClients() {
         let request = NSFetchRequest<ClientEntity>(entityName: "ClientEntity")
         do {
             savedClients = try container.viewContext.fetch(request)
-            print("Fetch \(savedClients.count)")
-
+        } catch let error {
+            print("ERROR \(error)")
+        }
+    }
+    
+    func fetchInterventions() {
+        let request = NSFetchRequest<InterventionEntity>(entityName: "InterventionEntity")
+        do {
+            savedInterventions = try container.viewContext.fetch(request)
+            print("savedInterventions \(savedInterventions.count)")
         } catch let error {
             print("ERROR \(error)")
         }
     }
     
     func addClient(firstName: String, lastName: String, address: String) {
-        print("ADD")
         let newClient = ClientEntity(context: container.viewContext)
         newClient.firstName = firstName
         newClient.lastName = lastName
@@ -43,19 +53,26 @@ class CoreDataViewModel: ObservableObject {
         saveData()
     }
     
-    func removeClient(indexSet: IndexSet) {
-        print("DELETE")
-        guard let index = indexSet.first else {return}
+    func removeClient(index: Int) {
         let clientToDelete = savedClients[index]
         container.viewContext.delete(clientToDelete)
         saveData()
     }
     
+    func addIntervention(title: String, date: Date) {
+        let newIntervention = InterventionEntity(context: container.viewContext)
+        newIntervention.title = title
+        newIntervention.date = date
+        newIntervention.client = savedClients.first
+        saveData()
+    }
+    
     func saveData() {
         do {
-            print("SAVE")
             try container.viewContext.save()
+            print("SAVED")
             fetchClients()
+            fetchInterventions()
         } catch let error {
                 print("ERROR \(error)")
         }

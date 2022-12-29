@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct SearchBar: View {
-    @Binding var toto: String
+    @Binding var index: String
     @Binding var scrollToIndex: String
 
     var body: some View {
         HStack {
-            TextField("Ener a username", text: $toto)
+            TextField("Ener a username", text: $index)
             Button {
                 let index = "10"
-                scrollToIndex = toto
+                scrollToIndex = index
             } label: {
                 Image(systemName: "magnifyingglass")
                     .opacity(0.5)

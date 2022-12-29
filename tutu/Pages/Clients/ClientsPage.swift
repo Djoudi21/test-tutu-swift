@@ -14,7 +14,6 @@ struct ClientsPage: View {
         NavigationView {
             ClientsList()
         }
-        .environmentObject(savedEntities)
     }
 }
 

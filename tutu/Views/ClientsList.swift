@@ -17,10 +17,10 @@ struct ClientsList: View {
         VStack {
             ScrollView {
                 ScrollViewReader { proxy in
-                    SearchBar(toto: $firstName, scrollToIndex: $scrollToIndex)
+                    SearchBar(index: $firstName, scrollToIndex: $scrollToIndex)
                     ForEach(Array(savedEntities.savedClients.enumerated()), id: \.element){ index, item in
                         NavigationLink {
-                            ClientDetailsPage(firstname: item.firstName ?? "", lastname: item.lastName ?? "", id: Int(item.id ))
+                            ClientDetailsPage(firstname: item.firstName ?? "", lastname: item.lastName ?? "", id: Int(item.id), index: index, savedEntities: savedEntities, entity: item)
                         } label: {
                            ClientCard(item: item)
                                 .id(item.firstName)
@@ -40,7 +40,6 @@ struct ClientsList: View {
             .sheet(isPresented: $showSheet) {
                 AddClientPage(firstName: "", lastName: "", address: "")
            }
-
         }
     }
 }
